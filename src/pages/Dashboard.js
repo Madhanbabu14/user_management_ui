@@ -1,41 +1,27 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-import { DataGrid } from "@mui/x-data-grid";
-import Navbar from '../components/Navbar'; // Navbar Component
+import React from "react";
+import Navbar from "../components/Navbar"; // Navbar Component
+import { Box, Typography } from "@mui/material";
 
 const Dashboard = () => {
-    const [loginHistory, setLoginHistory] = useState([]);
-
-    useEffect(() => {
-        const token = localStorage.getItem("authToken");
-        if (token) {
-            axios.get("http://localhost:5000/api/users/login-history", {
-                headers: { "x-access-token": token },
-            })
-                .then((res) => setLoginHistory(res.data.loginHistory))
-                .catch((err) => console.error("Error fetching login history:", err));
-        }
-    }, []);
-
-    const columns = [
-        { field: "id", headerName: "ID", width: 90 },
-        { field: "email", headerName: "Email", width: 200 },
-        { field: "loginTime", headerName: "Login Time", width: 200 },
-    ];
-
     return (
-        <>  
+        <>
             <Navbar />
-            <div style={{ height: 400, width: "80%", margin: "auto" }}>
-                <h2>User Activity</h2>
-                <DataGrid
-                    rows={loginHistory.map((log) => ({ ...log, id: log.id }))}
-                    columns={columns}
-                    pageSize={5}
-                    rowsPerPageOptions={[5]}
-                    checkboxSelection
-                />
-            </div>
+            <Box
+                sx={{
+                    height: "calc(100vh - 64px)", // Full height minus Navbar
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    textAlign: "center",
+                    backgroundColor: "#f5f5f5", // Light gray background
+                    padding: 3,
+                }}
+            >
+                <Typography variant="h3" component="h1" gutterBottom>
+                    Welcome to User Management
+                </Typography>
+            </Box>
         </>
     );
 };

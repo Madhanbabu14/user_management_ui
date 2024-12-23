@@ -8,8 +8,6 @@ import Reports from './pages/Reports';
 
 const App = () => {
   const token = localStorage.getItem("authToken");
-  console.log("token", token)
-  console.log("window.location.pathname", window.location.pathname)
   return (
     <Router>
       <Routes>
